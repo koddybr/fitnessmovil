@@ -1,8 +1,11 @@
 package com.example.fitness;
 
+import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import android.view.LayoutInflater;
 import android.view.View;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -13,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity 
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -65,7 +69,12 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            //return true;
+            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.contenedor);
+            LayoutInflater inflater = (LayoutInflater)getSystemService(this.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.registrandose, null);
+            mainLayout.removeAllViews();
+            mainLayout.addView(layout);
         }
 
         return super.onOptionsItemSelected(item);
@@ -79,15 +88,44 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             // Handle the camera action
+//            Intent intent = new Intent(this, IngresandoActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
+//            startActivity(intent);
+            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.contenedor);
+            LayoutInflater inflater = (LayoutInflater)getSystemService(this.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.menu, null);
+            mainLayout.removeAllViews();
+            mainLayout.addView(layout);
+            //this.finish();
         } else if (id == R.id.nav_gallery) {
+            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.contenedor);
+            LayoutInflater inflater = (LayoutInflater)getSystemService(this.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.retos, null);
+            mainLayout.removeAllViews();
+            mainLayout.addView(layout);
 
         } else if (id == R.id.nav_slideshow) {
+            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.contenedor);
+            LayoutInflater inflater = (LayoutInflater)getSystemService(this.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.ultimo, null);
+            mainLayout.removeAllViews();
+            mainLayout.addView(layout);
 
         } else if (id == R.id.nav_tools) {
-
+            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.contenedor);
+            LayoutInflater inflater = (LayoutInflater)getSystemService(this.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.recomendaciones, null);
+            mainLayout.removeAllViews();
+            mainLayout.addView(layout);
         } else if (id == R.id.nav_share) {
+            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.contenedor);
+            LayoutInflater inflater = (LayoutInflater)getSystemService(this.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.quepuedocomer, null);
+            mainLayout.removeAllViews();
+            mainLayout.addView(layout);
 
         } else if (id == R.id.nav_send) {
+            this.finish();
 
         }
 
