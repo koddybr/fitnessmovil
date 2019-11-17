@@ -59,6 +59,7 @@ public class DataBase extends SQLiteOpenHelper{
                 "nombre TEXT," +
                 "apellidos TEXT," +
                 "fecha_nacimiento TEXT," +
+                "id_estado_fisco TEXT," +
                 "email TEXT)";
         return query;
     }
@@ -142,7 +143,7 @@ public class DataBase extends SQLiteOpenHelper{
         query = "CREATE TABLE recomendacinoes (" +
                 "id INTEGER PRIMARY KEY," +
                 "api_id INTEGER," +
-                "aliment_id TEXT," +
+                "alimento_id TEXT," +
                 "calorias TEXT)";
         return query;
     }
@@ -184,6 +185,8 @@ public class DataBase extends SQLiteOpenHelper{
         val.put("descripcion", alimento.getDescripcion());
         val.put("marca", alimento.getMarca());
         val.put("macronutriente_id", alimento.getIdMacronutriente());
+        val.put("cantidad", alimento.getCantidad());
+        val.put("calorias", alimento.get.Calorias());
         db.insert("alimentos",null,val);
         db.close();
     }
@@ -204,6 +207,18 @@ public class DataBase extends SQLiteOpenHelper{
         db.close();
     }
 
+    public void storeActividad(Actividad actividad){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues val = new ContentValues();
+        String currentDateandTime = sdf.format(new Date());
+        val.put("api_id", user.getIdApi());
+        val.put("nombre", actividad.getNombre());
+        val.put("descripcion", actividad.getDescripcion());
+        val.put("factor", actividad.getFactor());
+        db.insert("actividades",null,val);
+        db.close();
+    }
+
     public void storeAvance(Avance avance){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues val = new ContentValues();
@@ -219,10 +234,22 @@ public class DataBase extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues val = new ContentValues();
         val.put("api_id", logro.getIdApi());
+        val.put("user_id", logro.getUserId());
         val.put("peso_objetivo", logro.getPesoObjetivo());
         val.put("peso_actual", logro.getPesoActual());
         val.put("logrado", logro.getLogrado());
         db.insert("logros",null,val);
+        db.close();
+    }
+
+    public void storeRecomendacion(Recomedacion recomedacion){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues val = new ContentValues();
+        String currentDateandTime = sdf.format(new Date());
+        val.put("api_id", recomedacion.getIdApi());
+        val.put("alimento_id", recomendacion.getAlimentoId());
+        val.put("calorias", recomendacion.getCalorias());
+        db.insert("recomendaciones",null,val);
         db.close();
     }
 
@@ -322,6 +349,159 @@ public class DataBase extends SQLiteOpenHelper{
     }
 //
 //
+public ArrayList<User> getUser(){
+    SQLiteDatabase db =  this.getWritableDatabase();
+    ArrayList<User> users = new ArrayList<>();
+    Cursor c = db.rawQuery("SELECT * FROM users",null);
+    if(c.moveToFirst()){
+        do{
+            User user =  new User();
+            user.setId(c.getInt(0));
+            user.setIdApi(c.getInt(1));
+            user.setName(c.getString(2));
+            user.setPassword(c.getString(3));
+            user.setNombre(Integer.parseInt(c.getString(4)));
+            user.setApellidos(c.getString(5));
+            user.setFecha_Nacimiento(Integer.parseInt(c.getString(6)));
+            user.setEmail(Integer.parseInt(c.getString(7)));
+            Log.v("fitness","nombreUser"+user.getNombre());
+            users.add(user);
+
+        }while (c.moveToNext());
+    }
+    return users;
+}
+
+    public ArrayList<Macronutriente> getMacronutriente(){
+        SQLiteDatabase db =  this.getWritableDatabase();
+        ArrayList<Macronutriente> macronutrientes = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT * FROM macronutrientes",null);
+        if(c.moveToFirst()){
+            do{
+                Macronutriente Macronutriente =  new Macronutriente();
+                macronutriente.setId(c.getInt(0));
+                macronutriente.setIdApi(c.getInt(1));
+                macronutriente.setNombre(c.getString(2));
+                macronutriente.setPeso(c.getString(3));
+                macronutriente.setCalorias(Integer.parseInt(c.getString(4)));
+                macronutriente.setProteinas(c.getString(5));
+                macronutriente.setCarbohidratos(Integer.parseInt(c.getString(6)));
+                macronutriente.setGrasas(Integer.parseInt(c.getString(7)));
+                Log.v("fitness","nombreMacronutriente"+macronutriente.getNombre());
+                macronutrientes.add(macronutriente);
+
+            }while (c.moveToNext());
+        }
+        return macronutrientes;
+    }
+
+
+    public ArrayList<EstadoFisico> getEstadoFisico() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<EstadoFisico> estadosFisicos = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT * FROM estadosFisicos", null);
+        if (c.moveToFirst()) {
+            do {
+                EstadoFisico estadoFisico = new EstadoFisico();
+                estadoFisico.setId(c.getInt(0));
+                estadoFisico.setIdApi(c.getInt(1));
+                estadoFisico.setPeso(c.getString(2));
+                estadoFisico.setEstatura(c.getString(3));
+                estadoFisico.setImc(Integer.parseInt(c.getString(4)));
+                estadoFisico.setGenero(c.getString(5));
+                estadoFisico.setEdad(Integer.parseInt(c.getString(6)));
+                estadoFisico.setActividad_Id(Integer.parseInt(c.getString(7)));
+                estadoFisico.setPeso_Objetivo(Integer.parseInt(c.getString(8)));
+                estadoFisico.setPeso_Ideal(Integer.parseInt(c.getString(9)));
+                Log.v("fitness", "nombreEstadoFisico" + estadoFisico.getNombre());
+                alimentos.add(estadoFisico);
+
+            } while (c.moveToNext());
+        }
+        return estadosFisicos;
+    }
+
+
+
+    public ArrayList<Actividad> getActividad(){
+        SQLiteDatabase db =  this.getWritableDatabase();
+        ArrayList<Actividad> actividades = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT * FROM actividades",null);
+        if(c.moveToFirst()){
+            do{
+                Actividad actividad =  new Actividad();
+                actividad.setId(c.getInt(0));
+                actividad.setIdApi(c.getInt(1));
+                actividad.setNombre(c.getString(2));
+                actividad.setDescripcion(c.getString(3));
+                actividad.setFactor(Integer.parseInt(c.getString(4)));
+                Log.v("fitness","nombreActividad"+actividad.getNombre());
+                actividades.add(actividad);
+
+            }while (c.moveToNext());
+        }
+        return actividades;
+    }
+
+    public ArrayList<Avance> getAvance(){
+        SQLiteDatabase db =  this.getWritableDatabase();
+        ArrayList<Avance> avances = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT * FROM avances",null);
+        if(c.moveToFirst()){
+            do{
+                Avance avance =  new User();
+                avance.setId(c.getInt(0));
+                avance.setIdApi(c.getInt(1));
+                avance.setUser_id(c.getString(2));
+                avance.setPeso_Inicial(c.getString(3));
+                avance.setPeso_Actual(Integer.parseInt(c.getString(4)));
+                Log.v("fitness","nombreAvance"+avance.getNombre());
+                avances.add(avance);
+
+            }while (c.moveToNext());
+        }
+        return avances;
+    }
+
+    public ArrayList<Logro> getLogro(){
+        SQLiteDatabase db =  this.getWritableDatabase();
+        ArrayList<Logro> logros = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT * FROM logros",null);
+        if(c.moveToFirst()){
+            do{
+                Logro logro =  new Logro();
+                logro.setId(c.getInt(0));
+                logro.setIdApi(c.getInt(1));
+                logro.setUser_Id(c.getString(2));
+                logro.setPeso_Objetivo(c.getString(3));
+                logro.setPeso_Actual(Integer.parseInt(c.getString(4)));
+                Log.v("fitness","nombreLogro"+user.getNombre());
+                logros.add(logro);
+
+            }while (c.moveToNext());
+        }
+        return logros;
+    }
+
+    public ArrayList<Recomendacion> getRecomendacion(){
+        SQLiteDatabase db =  this.getWritableDatabase();
+        ArrayList<Recomendacion> recomendaciones = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT * FROM recomendaciones",null);
+        if(c.moveToFirst()){
+            do{
+                Recomendacion recomendacion =  new Recomendacion();
+                recomendacion.setId(c.getInt(0));
+                recomendacion.setIdApi(c.getInt(1));
+                recomendacion.setAlimento_Id(c.getString(2));
+                recomendacion.setCalorias(c.getString(3));
+                Log.v("fitness","nombreRecomendacion"+recomendacion.getNombre());
+                recomendaciones.add(recomendacion);
+
+            }while (c.moveToNext());
+        }
+        return recomendaciones;
+    }
+
 //    public ArrayList<Product> getProducts(){
 //        ArrayList<Product> products = new ArrayList<Product>();
 //        Product product;
@@ -392,6 +572,11 @@ public class DataBase extends SQLiteOpenHelper{
 //        db.update("users",val,"id="+id,null);
 //        db.close();
 //    }
+
+
+
+
+
     private String dropUsers(){
         String query = "DROP TABLE IF EXISTS users";
         return query;
