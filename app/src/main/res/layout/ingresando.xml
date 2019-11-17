@@ -29,7 +29,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/editText9"
+        android:id="@+id/txtxEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -61,7 +61,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/editText14"
+        android:id="@+id/txtpassword"
         android:layout_width="244dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -70,11 +70,12 @@
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/button17"
+        android:id="@+id/ingresar"
         android:layout_width="326dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="75dp"
         android:text="INGRESAR"
+        android:onClick="login"
         android:textSize="20sp" />
 </LinearLayout>

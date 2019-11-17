@@ -18,7 +18,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView45"
+            android:id="@+id/tagPeso"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,7 +27,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView46"
+            android:id="@+id/tagEstatura"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -42,7 +42,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText15"
+            android:id="@+id/txtPeso"
             android:layout_width="22dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
@@ -52,7 +52,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/editText16"
+            android:id="@+id/txtEstatura"
             android:layout_width="66dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
@@ -69,21 +69,21 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView45"
+            android:id="@+id/tagEdad"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="70dp"
-            android:text="PESO"
+            android:text="EDAD"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView46"
+            android:id="@+id/tagGenero"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="10dp"
-            android:text="ESTATURA"
+            android:text="GENERO M/F"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -93,7 +93,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText15"
+            android:id="@+id/txtEdad"
             android:layout_width="22dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
@@ -103,7 +103,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/editText16"
+            android:id="@+id/txtGenero"
             android:layout_width="66dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
@@ -121,21 +121,21 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView45"
+            android:id="@+id/tagPesoOBjetivo"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="70dp"
-            android:text="PESO"
+            android:text="PESO OBJETIVO"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView46"
+            android:id="@+id/tagIMC"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="10dp"
-            android:text="ESTATURA"
+            android:text="IMC"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -145,7 +145,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/editText15"
+            android:id="@+id/txtPesoObjetivo"
             android:layout_width="22dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
@@ -155,7 +155,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/editText16"
+            android:id="@+id/txtImc"
             android:layout_width="66dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
@@ -166,11 +166,12 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button18"
+        android:id="@+id/idGuardarEstadoFisico"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="35dp"
+        android:onClick="guardar"
         android:text="GUARDAR"
         android:textSize="20sp" />
 

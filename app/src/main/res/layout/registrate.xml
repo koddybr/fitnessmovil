@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button14"
+            android:id="@+id/regsitrarse"
             android:layout_width="234dp"
             android:layout_height="wrap_content"
             android:layout_gravity="clip_horizontal"
@@ -35,12 +35,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button15"
+            android:id="@+id/ingresar"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="50dp"
             android:text="INGRESAR A MI CUENTA"
+            android:onClick="ingresar"
             android:textSize="20sp" />
 
         <ImageView
