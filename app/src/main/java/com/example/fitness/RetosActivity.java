@@ -9,7 +9,7 @@ public class RetosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.retos);
+        setContentView(R.layout.registrandose);
     }
     }
 

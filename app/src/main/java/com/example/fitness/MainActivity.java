@@ -1,7 +1,14 @@
 package com.example.fitness;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.fitness.Connection.Server;
+import com.example.fitness.Database.DataBase;
+import com.example.fitness.Fragments.MiEstdoFragment;
+import com.example.fitness.Models.Alimento;
+import com.example.fitness.Models.EstadoFisico;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -17,9 +24,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity 
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    DataBase dataBase;
+    Server server;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +40,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        server = new Server();
+        dataBase = new DataBase(this);
+        //updating database
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +52,8 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+        ArrayList<Alimento> storeAlimentos = server.getAlimentos("","");
+        Alimento.actualizarDB(dataBase, storeAlimentos);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -70,11 +89,11 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             //return true;
-            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.contenedor);
-            LayoutInflater inflater = (LayoutInflater)getSystemService(this.LAYOUT_INFLATER_SERVICE);
-            View layout = inflater.inflate(R.layout.registrandose, null);
-            mainLayout.removeAllViews();
-            mainLayout.addView(layout);
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            MiEstdoFragment miEstdoFragment = new MiEstdoFragment();
+            miEstdoFragment.setContext(this);
+            ft.replace(R.id.contenedor, miEstdoFragment, "NewFragmentTag");
+            ft.commit();
         }
 
         return super.onOptionsItemSelected(item);
@@ -91,11 +110,17 @@ public class MainActivity extends AppCompatActivity
 //            Intent intent = new Intent(this, IngresandoActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_TASK_ON_HOME);
 //            startActivity(intent);
-            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.contenedor);
-            LayoutInflater inflater = (LayoutInflater)getSystemService(this.LAYOUT_INFLATER_SERVICE);
-            View layout = inflater.inflate(R.layout.menu, null);
-            mainLayout.removeAllViews();
-            mainLayout.addView(layout);
+//            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.contenedor);
+//            LayoutInflater inflater = (LayoutInflater)getSystemService(this.LAYOUT_INFLATER_SERVICE);
+//            View layout = inflater.inflate(R.layout.menu, null);
+//            mainLayout.removeAllViews();
+//            mainLayout.addView(layout);
+
+
+            Toast.makeText(MainActivity.this, "Preparando camara", Toast.LENGTH_LONG).show();
+
+            Intent unityIntent = new Intent(MainActivity.this, UnityPlayerActivity.class);
+            MainActivity.this.startActivity(unityIntent);
             //this.finish();
         } else if (id == R.id.nav_gallery) {
             LinearLayout mainLayout = (LinearLayout) findViewById(R.id.contenedor);
