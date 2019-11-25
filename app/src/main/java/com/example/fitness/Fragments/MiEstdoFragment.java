@@ -10,16 +10,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.fitness.Database.DataBase;
+import com.example.fitness.Models.Actividad;
 import com.example.fitness.Models.EstadoFisico;
 import com.example.fitness.R;
 
-import Watchers.EstaturaWatcher;
-import Watchers.PesoWatcher;
+import com.example.fitness.Watchers.EstaturaWatcher;
+import com.example.fitness.Watchers.PesoWatcher;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,8 +100,8 @@ public class MiEstdoFragment extends Fragment {
         txtPeso = (EditText)rootView.findViewById(R.id.txtPeso);
         txtEstatura = (EditText)rootView.findViewById(R.id.txtEstatura);
         btnGuardarEstadoFisico = (Button) rootView.findViewById(R.id.idGuardarEstadoFisico);
-        txtPeso.addTextChangedListener(new PesoWatcher((EditText) txtIMC, estadoFisico));
-        txtEstatura.addTextChangedListener(new EstaturaWatcher((EditText) txtIMC, estadoFisico));
+        txtPeso.addTextChangedListener(new PesoWatcher((EditText) txtIMC, (EditText) txtPeso, (EditText) txtEstatura));
+        txtEstatura.addTextChangedListener(new PesoWatcher((EditText) txtIMC, (EditText) txtPeso, (EditText) txtEstatura));
         btnGuardarEstadoFisico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +109,21 @@ public class MiEstdoFragment extends Fragment {
                 guardar();
             }
         });
+        ArrayList<Actividad> actividades = dataBase.getActividades();
+        String[] listaActividades = new String[actividades.size()];// {"Item 1", "Item 2", "Item 3", "Item 4"};
+        for(int it=0; it<actividades.size(); it++){
+            listaActividades[it] = actividades.get(it).getNombre()+" - "+actividades.get(it).getDescripcion();
+        }
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(
+                        this.context,
+                        R.layout.lista_actividades,
+                        listaActividades);
+
+        AutoCompleteTextView editTextFilledExposedDropdown =
+                rootView.findViewById(R.id.txtActividad);
+        editTextFilledExposedDropdown.setAdapter(adapter);
         return rootView;
     }
 
@@ -156,12 +177,21 @@ public class MiEstdoFragment extends Fragment {
         txtGenero = (EditText)rootView.findViewById(R.id.txtGenero);
         txtEstatura = (EditText)rootView.findViewById(R.id.txtEstatura);
         txtIMC = (EditText)rootView.findViewById(R.id.txtImc);
+
         Log.v(TAG,txtPeso.getText().toString());
         estadoFisico.setPeso(Float.parseFloat(txtPeso.getText().toString()));
         estadoFisico.setEstatura(Float.parseFloat(txtEstatura.getText().toString()));
         estadoFisico.setEdad(Integer.parseInt(txtEdad.getText().toString()));
         estadoFisico.setGenero(Integer.parseInt(txtGenero.getText().toString()));
-        estadoFisico.setImc(Float.parseFloat(txtIMC.getText().toString()));
+        //estadoFisico.setImc(Float.parseFloat(txtIMC.getText().toString()));
+        estadoFisico.setImc(estadoFisico.getPeso()/(estadoFisico.getEstatura()*estadoFisico.getEstatura()));
+        //calculando peso ideal
+        Float pesoBase = (estadoFisico.getEstatura()*100)-100;
+        Double pesoIdeal = pesoBase*0.90;
+        //if(estadoFisico.getGenero() == 1) {
+            estadoFisico.setPesoIdeal((float)(pesoIdeal*100)/100);
+        //}
+
         Log.v("fitness", "obtenido correctamente");
         Log.v("fitness", "guardado en db correctamente");
         Log.v("fitness",estadoFisico.getEdad()+"");

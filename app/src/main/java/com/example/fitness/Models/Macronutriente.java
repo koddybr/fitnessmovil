@@ -1,5 +1,13 @@
 package com.example.fitness.Models;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class Macronutriente {
     private int id;
     private int idApi;
@@ -64,6 +72,52 @@ public class Macronutriente {
 
     public void setGrasas(float grasas) {
         this.grasas = grasas;
+    }
+
+    public static ArrayList<Macronutriente> convertirDesdeJSON(String jsonString){
+        ArrayList<Macronutriente> macronutrientes = new ArrayList<>();
+        Log.v("fitness","p lossd" +
+                "starting parsing macronutrientes");
+        try{
+            JSONArray jsonArray = new JSONArray(jsonString);
+            for(int it = 0; it<jsonArray.length(); it++){
+                JSONObject jsonObject = jsonArray.getJSONObject(it);
+                Macronutriente macronutriente = new Macronutriente();
+                Log.v("fitness","gettin: "+it);
+                if(jsonObject.has("nombre")){
+                    macronutriente.setNombre(jsonObject.getString("nombre"));
+                }
+                if(jsonObject.has("peso neto")){
+                    macronutriente.setPeso(Float.parseFloat(jsonObject.getString("peso neto")));
+                }
+                if(jsonObject.has("calorias")){
+                    macronutriente.setCalorias(Float.parseFloat(jsonObject.getString("calorias")));
+                }
+                if(jsonObject.has("proteinas")){
+                    macronutriente.setProteinas(
+                            Integer.parseInt(
+                                    jsonObject.getString("proteinas")
+                            )
+                    );
+                }
+                if(jsonObject.has("carbohidratos")){
+                    macronutriente.setCarbohidratos(Integer.parseInt(jsonObject.getString("carbohidratos")));
+                }
+                if(jsonObject.has("grasas")){
+                    macronutriente.setGrasas(
+                            Integer.parseInt(
+                                    jsonObject.getString("grasas")
+                            )
+                    );
+                }
+                macronutrientes.add(macronutriente);
+                Log.v("fitness",macronutriente.getNombre());
+                //Log.v("fitness",macronutriente.getIdMacronutriente()+"");
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return macronutrientes;
     }
 
     public int getIdApi() {

@@ -1,83 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="198dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
 
-        android:layout_marginTop="180dp"
-        android:gravity="center"
-        android:text="Nombre de usuario o correo" />
-
-    <EditText
-        android:id="@+id/editText10"
-        android:layout_width="320dp"
-        android:layout_height="58dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-15dp"
-        android:ems="10"
-        android:gravity="bottom"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="198dp"
-        android:layout_height="58dp"
-        android:layout_gravity="center_horizontal"
-
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="Contraseña" />
-
-    <EditText
-        android:id="@+id/editText11"
-        android:layout_width="298dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_end_icon"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:hint="NOMBRE"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/icono_person"
+        app:endIconContentDescription="Nombre">
 
-    <LinearLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_end_icon1"
         android:layout_width="match_parent"
-        android:layout_height="142dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:hint="APELLIDO"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/icono_person"
+        app:endIconContentDescription="Apellidos">
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:text="Iniciar Sesión" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:layout_weight="1"
-            android:text="Registrate" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_end_icon2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:hint="FECHA_NACIMIENTO"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/icono_fecha"
+        app:endIconContentDescription="Fecha de Nacimiento">
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="215dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_end_icon3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="NOMBRE_USUARIO"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/icono_nomusuario"
+        app:endIconContentDescription="Nombre de Usuario">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_end_icon4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="CORREO"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/icono_correo"
+        app:endIconContentDescription="Correo Electronico">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <GridLayout
+        android:id="@+id/grid4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:columnCount="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/material_button5"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Olvidaste tu Contraseña?" />
-    </LinearLayout>
+            android:text="REGISTRARSE"
+            android:textSize="14sp" />
 
+        <Space/>
+    </GridLayout>>
 
 </LinearLayout>

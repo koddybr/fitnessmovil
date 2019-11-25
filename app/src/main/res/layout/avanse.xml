@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingLeft="50dp">
 
@@ -13,5 +14,56 @@
         android:layout_marginTop="30dp"
         android:text="MI AVANSE"
         android:textSize="20sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_end_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="PESO INICIAL"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/icono_peso"
+        app:endIconContentDescription="Peos en KIlos">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="332dp"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_end_icon1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="PESO ACTUAL"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/icono_peso"
+        app:endIconContentDescription="Peso en Kilos">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <GridLayout
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:columnCount="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/material_button"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="VER RESULTADO"
+            android:textSize="14sp" />
+
+        <Space/>
+    </GridLayout>
+
 
 </LinearLayout>

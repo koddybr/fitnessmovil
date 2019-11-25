@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.example.fitness.Connection.Server;
 import com.example.fitness.Database.DataBase;
 import com.example.fitness.Fragments.MiEstdoFragment;
+import com.example.fitness.Models.Actividad;
 import com.example.fitness.Models.Alimento;
 import com.example.fitness.Models.EstadoFisico;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity
 
     DataBase dataBase;
     Server server;
-
+    TextView navNombres;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +54,15 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+        //agregando nombre a la barra lateral
+
+//        navNombres = (TextView)findViewById(R.id.navNombres);
+//        navNombres.setText("Nuevo Nombre");
+
         ArrayList<Alimento> storeAlimentos = server.getAlimentos("","");
         Alimento.actualizarDB(dataBase, storeAlimentos);
+        ArrayList<Actividad> storeActividades = server.getActividades("","");
+        Actividad.actualizarDB(dataBase, storeActividades);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

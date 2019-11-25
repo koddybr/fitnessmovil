@@ -1,5 +1,14 @@
 package com.example.fitness.Models;
 
+import android.util.Log;
+
+import com.example.fitness.Database.DataBase;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.util.ArrayList;
+
 public class EstadoFisico {
     private int id;
     private float peso;
@@ -11,6 +20,7 @@ public class EstadoFisico {
     private float pesoIdeal;
     private int idActividad;
     private int idApi;
+    DataBase db;
 
     public EstadoFisico() {
         this.peso = 0;
@@ -21,6 +31,7 @@ public class EstadoFisico {
         this.pesoObetivo = 0;
         this.pesoIdeal = 0;
         this.idActividad = 0;
+        //this.db = new DataBase(getA);
     }
 
     public EstadoFisico(float peso, float estatura, float imc, int genero, int edad, float pesoObetivo, float pesoIdeal, int idActividad) {
@@ -62,7 +73,7 @@ public class EstadoFisico {
         if(this.estatura <= 0 ){
             return  0;
         }
-        this.imc = this.peso/this.estatura;
+        this.imc = this.peso/(this.estatura*this.estatura);
         return imc;
     }
 
@@ -110,11 +121,74 @@ public class EstadoFisico {
         this.idActividad = idActividad;
     }
 
+    public static ArrayList<EstadoFisico> convertirDesdeJSON(String jsonString){
+        ArrayList<EstadoFisico> estadosFisicos = new ArrayList<>();
+        Log.v("fitness","p lossd" +
+                "starting parsing estadosFisicos");
+        try{
+            JSONArray jsonArray = new JSONArray(jsonString);
+            for(int it = 0; it<jsonArray.length(); it++){
+                JSONObject jsonObject = jsonArray.getJSONObject(it);
+                EstadoFisico estadoFisico = new EstadoFisico();
+                Log.v("fitness","gettin: "+it);
+                if(jsonObject.has("peso")){
+                    estadoFisico.setPeso(Float.parseFloat(jsonObject.getString("peso")));
+                }
+                if(jsonObject.has("estatura")){
+                    estadoFisico.setEstatura(Float.parseFloat(jsonObject.getString("estatura")));
+                }
+                if(jsonObject.has("imc")){
+                    estadoFisico.setImc(Float.parseFloat(jsonObject.getString("imc")));
+                }
+                if(jsonObject.has("genero")){
+                    estadoFisico.setGenero(
+                            Integer.parseInt(
+                                    jsonObject.getString("genero")
+                            )
+                    );
+                }
+                if(jsonObject.has("edad")){
+                    estadoFisico.setEdad(Integer.parseInt(jsonObject.getString("edad")));
+                }
+//                if(jsonObject.has("acciones")){
+//                    estadoFisico.setAcciones(Integer.parseInt(jsonObject.getString("acciones")));
+//                }
+                if(jsonObject.has("peso y en estado objetivo")){
+                    estadoFisico.setPesoObetivo(Integer.parseInt(jsonObject.getString("peso objetivo")));
+                }
+                if(jsonObject.has("peso estandar")){
+                    estadoFisico.setPesoIdeal(
+                            Float.parseFloat(
+                                    jsonObject.getString("peso estandar")
+                            )
+                    );
+                }
+                estadosFisicos.add(estadoFisico);
+                //Log.v("fitness",estadoFisico.getNombre());
+                //Log.v("fitness",estadoFisico.getIdMacronutriente()+"");
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return estadosFisicos;
+    }
+
     public int getIdApi() {
         return idApi;
     }
 
     public void setIdApi(int idApi) {
         this.idApi = idApi;
+    }
+    public static String consumir(String code) {
+
+        return code+"<<<";
+    }
+    public static String subir(String code) {
+
+        return code+"++";
+    }
+    private int calcularCalorias(){
+        return 0;
     }
 }

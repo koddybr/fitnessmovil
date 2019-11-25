@@ -1,5 +1,12 @@
 package com.example.fitness.Models;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 public class User {
@@ -75,6 +82,46 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public static ArrayList<User> convertirDesdeJSON(String jsonString){
+        ArrayList<User> users = new ArrayList<>();
+        Log.v("fitness","p lossd" +
+                "starting parsing users");
+        try{
+            JSONArray jsonArray = new JSONArray(jsonString);
+            for(int it = 0; it<jsonArray.length(); it++){
+                JSONObject jsonObject = jsonArray.getJSONObject(it);
+                User user = new User();
+                Log.v("fitness","gettin: "+it);
+                if(jsonObject.has("nombres")){
+                    user.setNombre(jsonObject.getString("nombres"));
+                }
+                if(jsonObject.has("apellidos")){
+                    user.setApellidos(jsonObject.getString("apellidos"));
+                }
+                if(jsonObject.has("fecha_nacimiento")){
+                    user.setFechaNacimiento(null);
+                }
+                if(jsonObject.has("nombre de usuario")){
+                    user.setNombre(
+                    //        Integer.parseInt(
+                                    jsonObject.getString("nombre de usuario")
+                            //)
+                    );
+                }
+                if(jsonObject.has("correo")){
+                    user.setEmail(jsonObject.getString("correo"));
+                }
+
+                users.add(user);
+                Log.v("fitness",user.getNombre());
+                //Log.v("fitness",user.getIdMacronutriente()+"");
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     public int getIdApi() {

@@ -2,80 +2,63 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/fondo3"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_end_icon"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="100dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView42"
-            android:layout_width="56dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_weight="1"
-            android:text="NOMBRE DE USUARIO O CONTRASEÑA"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="22dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="30dp"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/txtxEmail"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:hint="INGRESE CORREO"
+        app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/icono_persona"
+        app:endIconContentDescription="Descripcion correo">
 
-    <LinearLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtxEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_end_icon2"
         android:layout_width="match_parent"
-        android:layout_height="59dp"
-        android:layout_marginTop="90dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:hint="INGRESE PASSWORD"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/icono_candado"
+        app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
+        app:endIconContentDescription="Ingrese Password">
 
-        <TextView
-            android:id="@+id/textView44"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginLeft="80dp"
-            android:layout_weight="1"
-            android:text="CONTRASEÑA"
-            android:textSize="18sp" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="32dp"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <GridLayout
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
+        android:clipToPadding="false"
+        android:columnCount="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/material_button"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingRight="40dp"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
-    </LinearLayout>
+            app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
+            android:text="REGISTRARSE"
+            android:onClick="login"
+            android:textSize="14sp" />
 
-    <EditText
-        android:id="@+id/txtpassword"
-        android:layout_width="244dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/ingresar"
-        android:layout_width="326dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="75dp"
-        android:text="INGRESAR"
-        android:onClick="login"
-        android:textSize="20sp" />
+        <Space/>
+    </GridLayout>
 </LinearLayout>

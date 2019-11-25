@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.fitness.Models.Actividad;
 import com.example.fitness.Models.Alimento;
 import com.example.fitness.Models.Avance;
 import com.example.fitness.Models.EstadoFisico;
@@ -38,6 +39,7 @@ public class DataBase extends SQLiteOpenHelper{
         db.execSQL(queryLogros());
         db.execSQL(queryRecomendaciones());
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(dropEstadosFisicos());
@@ -186,7 +188,7 @@ public class DataBase extends SQLiteOpenHelper{
         val.put("marca", alimento.getMarca());
         val.put("macronutriente_id", alimento.getIdMacronutriente());
         val.put("cantidad", alimento.getCantidad());
-        val.put("calorias", alimento.get.Calorias());
+        val.put("calorias", alimento.getCalorias());
         db.insert("alimentos",null,val);
         db.close();
     }
@@ -211,7 +213,7 @@ public class DataBase extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues val = new ContentValues();
         String currentDateandTime = sdf.format(new Date());
-        val.put("api_id", user.getIdApi());
+        val.put("api_id", actividad.getIdApi());
         val.put("nombre", actividad.getNombre());
         val.put("descripcion", actividad.getDescripcion());
         val.put("factor", actividad.getFactor());
@@ -234,7 +236,7 @@ public class DataBase extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues val = new ContentValues();
         val.put("api_id", logro.getIdApi());
-        val.put("user_id", logro.getUserId());
+        val.put("user_id", logro.getIdUser());
         val.put("peso_objetivo", logro.getPesoObjetivo());
         val.put("peso_actual", logro.getPesoActual());
         val.put("logrado", logro.getLogrado());
@@ -242,16 +244,16 @@ public class DataBase extends SQLiteOpenHelper{
         db.close();
     }
 
-    public void storeRecomendacion(Recomedacion recomedacion){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues val = new ContentValues();
-        String currentDateandTime = sdf.format(new Date());
-        val.put("api_id", recomedacion.getIdApi());
-        val.put("alimento_id", recomendacion.getAlimentoId());
-        val.put("calorias", recomendacion.getCalorias());
-        db.insert("recomendaciones",null,val);
-        db.close();
-    }
+//    public void storeRecomendacion(Recomendacion recomedacion){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues val = new ContentValues();
+//        String currentDateandTime = sdf.format(new Date());
+//        val.put("api_id", recomedacion.getIdApi());
+//        val.put("alimento_id", recomendacion.getAlimentoId());
+//        val.put("calorias", recomendacion.getCalorias());
+//        db.insert("recomendaciones",null,val);
+//        db.close();
+//    }
 
     public User getUser(){
         SQLiteDatabase db =  this.getWritableDatabase();
@@ -323,13 +325,14 @@ public class DataBase extends SQLiteOpenHelper{
         if(c.moveToFirst()){
             do{
                 estadoFisico.setId(c.getInt(0));
-                estadoFisico.setPeso(Float.parseFloat(c.getString(1)));
-                estadoFisico.setEstatura(Float.parseFloat(c.getString(2)));
-                estadoFisico.setImc(Float.parseFloat(c.getString(3)));
-                estadoFisico.setGenero(Integer.parseInt(c.getString(4)));
-                estadoFisico.setEdad(Integer.parseInt(c.getString(5)));
-                estadoFisico.setPesoObetivo(Float.parseFloat(c.getString(6)));
-                estadoFisico.setPesoIdeal(Float.parseFloat(c.getString(7)));
+                estadoFisico.setId(c.getInt(1));
+                estadoFisico.setPeso(Float.parseFloat(c.getString(2)));
+                estadoFisico.setEstatura(Float.parseFloat(c.getString(3)));
+                estadoFisico.setImc(Float.parseFloat(c.getString(4)));
+                estadoFisico.setGenero(Integer.parseInt(c.getString(5)));
+                estadoFisico.setEdad(Integer.parseInt(c.getString(6)));
+                estadoFisico.setPesoObetivo(Float.parseFloat(c.getString(7)));
+                estadoFisico.setPesoIdeal(Float.parseFloat(c.getString(8)));
             }while (c.moveToNext());
         }
         return estadoFisico;
@@ -349,42 +352,42 @@ public class DataBase extends SQLiteOpenHelper{
     }
 //
 //
-public ArrayList<User> getUser(){
-    SQLiteDatabase db =  this.getWritableDatabase();
-    ArrayList<User> users = new ArrayList<>();
-    Cursor c = db.rawQuery("SELECT * FROM users",null);
-    if(c.moveToFirst()){
-        do{
-            User user =  new User();
-            user.setId(c.getInt(0));
-            user.setIdApi(c.getInt(1));
-            user.setName(c.getString(2));
-            user.setPassword(c.getString(3));
-            user.setNombre(Integer.parseInt(c.getString(4)));
-            user.setApellidos(c.getString(5));
-            user.setFecha_Nacimiento(Integer.parseInt(c.getString(6)));
-            user.setEmail(Integer.parseInt(c.getString(7)));
-            Log.v("fitness","nombreUser"+user.getNombre());
-            users.add(user);
+    public ArrayList<User> getUsers(){
+        SQLiteDatabase db =  this.getWritableDatabase();
+        ArrayList<User> users = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT * FROM users",null);
+        if(c.moveToFirst()){
+            do{
+                User user =  new User();
+                user.setId(c.getInt(0));
+                user.setIdApi(c.getInt(1));
+                user.setName(c.getString(2));
+                user.setPassword(c.getString(3));
+                user.setNombre(c.getString(4));
+                user.setApellidos(c.getString(5));
+                //user.setFechaNacimiento(Integer.parseInt(c.getString(6)));
+                user.setEmail(c.getString(7));
+                Log.v("fitness","nombreUser"+user.getNombre());
+                users.add(user);
 
-        }while (c.moveToNext());
+            }while (c.moveToNext());
+        }
+        return users;
     }
-    return users;
-}
 
-    public ArrayList<Macronutriente> getMacronutriente(){
+    public ArrayList<Macronutriente> getMacronutrientes(){
         SQLiteDatabase db =  this.getWritableDatabase();
         ArrayList<Macronutriente> macronutrientes = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT * FROM macronutrientes",null);
         if(c.moveToFirst()){
             do{
-                Macronutriente Macronutriente =  new Macronutriente();
+                Macronutriente macronutriente =  new Macronutriente();
                 macronutriente.setId(c.getInt(0));
                 macronutriente.setIdApi(c.getInt(1));
                 macronutriente.setNombre(c.getString(2));
-                macronutriente.setPeso(c.getString(3));
+                macronutriente.setPeso(Float.parseFloat(c.getString(3)));
                 macronutriente.setCalorias(Integer.parseInt(c.getString(4)));
-                macronutriente.setProteinas(c.getString(5));
+                macronutriente.setProteinas(Float.parseFloat(c.getString(5)));
                 macronutriente.setCarbohidratos(Integer.parseInt(c.getString(6)));
                 macronutriente.setGrasas(Integer.parseInt(c.getString(7)));
                 Log.v("fitness","nombreMacronutriente"+macronutriente.getNombre());
@@ -396,7 +399,7 @@ public ArrayList<User> getUser(){
     }
 
 
-    public ArrayList<EstadoFisico> getEstadoFisico() {
+    public ArrayList<EstadoFisico> getEstadoFisicos() {
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<EstadoFisico> estadosFisicos = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT * FROM estadosFisicos", null);
@@ -405,16 +408,16 @@ public ArrayList<User> getUser(){
                 EstadoFisico estadoFisico = new EstadoFisico();
                 estadoFisico.setId(c.getInt(0));
                 estadoFisico.setIdApi(c.getInt(1));
-                estadoFisico.setPeso(c.getString(2));
-                estadoFisico.setEstatura(c.getString(3));
+                estadoFisico.setPeso(Float.parseFloat(c.getString(2)));
+                estadoFisico.setEstatura(Float.parseFloat(c.getString(3)));
                 estadoFisico.setImc(Integer.parseInt(c.getString(4)));
-                estadoFisico.setGenero(c.getString(5));
+                estadoFisico.setGenero(Integer.parseInt(c.getString(5)));
                 estadoFisico.setEdad(Integer.parseInt(c.getString(6)));
-                estadoFisico.setActividad_Id(Integer.parseInt(c.getString(7)));
-                estadoFisico.setPeso_Objetivo(Integer.parseInt(c.getString(8)));
-                estadoFisico.setPeso_Ideal(Integer.parseInt(c.getString(9)));
-                Log.v("fitness", "nombreEstadoFisico" + estadoFisico.getNombre());
-                alimentos.add(estadoFisico);
+                estadoFisico.setIdActividad(Integer.parseInt(c.getString(7)));
+                estadoFisico.setPesoObetivo(Float.parseFloat(c.getString(8)));
+                estadoFisico.setPesoIdeal(Float.parseFloat(c.getString(9)));
+                Log.v("fitness", "nombreEstadoFisico" + estadoFisico.getPeso());
+                estadosFisicos.add(estadoFisico);
 
             } while (c.moveToNext());
         }
@@ -423,7 +426,7 @@ public ArrayList<User> getUser(){
 
 
 
-    public ArrayList<Actividad> getActividad(){
+    public ArrayList<Actividad> getActividades(){
         SQLiteDatabase db =  this.getWritableDatabase();
         ArrayList<Actividad> actividades = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT * FROM actividades",null);
@@ -443,64 +446,64 @@ public ArrayList<User> getUser(){
         return actividades;
     }
 
-    public ArrayList<Avance> getAvance(){
+    public ArrayList<Avance> getAvances(){
         SQLiteDatabase db =  this.getWritableDatabase();
         ArrayList<Avance> avances = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT * FROM avances",null);
         if(c.moveToFirst()){
             do{
-                Avance avance =  new User();
+                Avance avance =  new Avance();
                 avance.setId(c.getInt(0));
                 avance.setIdApi(c.getInt(1));
-                avance.setUser_id(c.getString(2));
-                avance.setPeso_Inicial(c.getString(3));
-                avance.setPeso_Actual(Integer.parseInt(c.getString(4)));
-                Log.v("fitness","nombreAvance"+avance.getNombre());
+                avance.setIdUsuario(Integer.parseInt(c.getString(2)));
+                avance.setPesoInicial(Integer.parseInt(c.getString(3)));
+                avance.setPesoActual(Integer.parseInt(c.getString(4)));
+                Log.v("fitness","nombreAvance"+avance.getPesoInicial());
                 avances.add(avance);
 
             }while (c.moveToNext());
         }
         return avances;
     }
+//
+//    public ArrayList<Logro> getLogro(){
+//        SQLiteDatabase db =  this.getWritableDatabase();
+//        ArrayList<Logro> logros = new ArrayList<>();
+//        Cursor c = db.rawQuery("SELECT * FROM logros",null);
+//        if(c.moveToFirst()){
+//            do{
+//                Logro logro =  new Logro();
+//                logro.setId(c.getInt(0));
+//                logro.setIdApi(c.getInt(1));
+//                logro.setUser_Id(c.getString(2));
+//                logro.setPeso_Objetivo(c.getString(3));
+//                logro.setPeso_Actual(Integer.parseInt(c.getString(4)));
+//                Log.v("fitness","nombreLogro"+user.getNombre());
+//                logros.add(logro);
+//
+//            }while (c.moveToNext());
+//        }
+//        return logros;
+//    }
 
-    public ArrayList<Logro> getLogro(){
-        SQLiteDatabase db =  this.getWritableDatabase();
-        ArrayList<Logro> logros = new ArrayList<>();
-        Cursor c = db.rawQuery("SELECT * FROM logros",null);
-        if(c.moveToFirst()){
-            do{
-                Logro logro =  new Logro();
-                logro.setId(c.getInt(0));
-                logro.setIdApi(c.getInt(1));
-                logro.setUser_Id(c.getString(2));
-                logro.setPeso_Objetivo(c.getString(3));
-                logro.setPeso_Actual(Integer.parseInt(c.getString(4)));
-                Log.v("fitness","nombreLogro"+user.getNombre());
-                logros.add(logro);
-
-            }while (c.moveToNext());
-        }
-        return logros;
-    }
-
-    public ArrayList<Recomendacion> getRecomendacion(){
-        SQLiteDatabase db =  this.getWritableDatabase();
-        ArrayList<Recomendacion> recomendaciones = new ArrayList<>();
-        Cursor c = db.rawQuery("SELECT * FROM recomendaciones",null);
-        if(c.moveToFirst()){
-            do{
-                Recomendacion recomendacion =  new Recomendacion();
-                recomendacion.setId(c.getInt(0));
-                recomendacion.setIdApi(c.getInt(1));
-                recomendacion.setAlimento_Id(c.getString(2));
-                recomendacion.setCalorias(c.getString(3));
-                Log.v("fitness","nombreRecomendacion"+recomendacion.getNombre());
-                recomendaciones.add(recomendacion);
-
-            }while (c.moveToNext());
-        }
-        return recomendaciones;
-    }
+//    public ArrayList<Recomendacion> getRecomendacion(){
+//        SQLiteDatabase db =  this.getWritableDatabase();
+//        ArrayList<Recomendacion> recomendaciones = new ArrayList<>();
+//        Cursor c = db.rawQuery("SELECT * FROM recomendaciones",null);
+//        if(c.moveToFirst()){
+//            do{
+//                Recomendacion recomendacion =  new Recomendacion();
+//                recomendacion.setId(c.getInt(0));
+//                recomendacion.setIdApi(c.getInt(1));
+//                recomendacion.setAlimento_Id(c.getString(2));
+//                recomendacion.setCalorias(c.getString(3));
+//                Log.v("fitness","nombreRecomendacion"+recomendacion.getNombre());
+//                recomendaciones.add(recomendacion);
+//
+//            }while (c.moveToNext());
+//        }
+//        return recomendaciones;
+//    }
 
 //    public ArrayList<Product> getProducts(){
 //        ArrayList<Product> products = new ArrayList<Product>();

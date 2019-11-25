@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.example.fitness.Database.DataBase;
 import com.example.fitness.Models.EstadoFisico;
 
-import Watchers.EstaturaWatcher;
-import Watchers.PesoWatcher;
+import com.example.fitness.Watchers.EstaturaWatcher;
+import com.example.fitness.Watchers.PesoWatcher;
 
 public class MiEstadoActivity extends AppCompatActivity {
 
@@ -35,8 +35,8 @@ public class MiEstadoActivity extends AppCompatActivity {
         txtEstatura = (EditText)findViewById(R.id.txtEstatura);
         btnGuardarEstadoFisico = (Button) findViewById(R.id.idGuardarEstadoFisico);
 
-        txtPeso.addTextChangedListener(new PesoWatcher((EditText) txtIMC, estadoFisico));
-        txtEstatura.addTextChangedListener(new EstaturaWatcher((EditText) txtIMC, estadoFisico));
+        //txtPeso.addTextChangedListener(new PesoWatcher(new PesoWatcher((EditText) txtIMC, (EditText) txtPeso, (EditText) txtEstatura)));
+        //txtEstatura.addTextChangedListener(new EstaturaWatcher((EditText) txtIMC, estadoFisico));
         btnGuardarEstadoFisico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,4 +74,14 @@ public class MiEstadoActivity extends AppCompatActivity {
         Log.v("fitness",estadoFisico.getEstatura()+"");
         Log.v("fitness",estadoFisico.getId()+"");
     }
+
+    public static String calcularSubir(String codigo){
+        return "";
+    }
+
+    public static String calcularConsumir(String codigo){
+        return "";
+    }
+
+
 }

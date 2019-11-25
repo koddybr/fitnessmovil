@@ -1,178 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView43"
-        android:layout_width="292dp"
-        android:layout_height="114dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
-        android:text="MI ESTADO FÍSICO ACTUAL"
-        android:textSize="35sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tagPeso"
-            android:layout_width="1dp"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/custom_end_icon1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="70dp"
-            android:text="PESO"
-            android:textSize="18sp" />
+            android:hint="ESTATURA"
+            app:endIconContentDescription="Estatura en Metros"
+            app:endIconDrawable="@drawable/icono_altura"
+            app:endIconMode="custom">
 
-        <TextView
-            android:id="@+id/tagEstatura"
-            android:layout_width="1dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtEstatura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/custom_end_icon"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:text="ESTATURA"
-            android:textSize="18sp" />
-    </LinearLayout>
+            android:hint="PESO"
+            app:endIconContentDescription="Peso en Kilos"
+            app:endIconDrawable="@drawable/icono_peso"
+            app:endIconMode="custom">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:orientation="horizontal">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtPeso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/txtPeso"
-            android:layout_width="22dp"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/custom_end_icon3"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="16sp" />
+            android:hint="GENERO"
+            app:endIconContentDescription="Genero"
+            app:endIconDrawable="@drawable/icono_genero"
+            app:endIconMode="custom">
 
-        <EditText
-            android:id="@+id/txtEstatura"
-            android:layout_width="66dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tagEdad"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="70dp"
-            android:text="EDAD"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tagGenero"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:text="GENERO M/F"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/txtEdad"
-            android:layout_width="22dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="16sp" />
-
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtGenero"
-            android:layout_width="66dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_end_icon4"
         android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tagPesoOBjetivo"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="70dp"
-            android:text="PESO OBJETIVO"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tagIMC"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:text="IMC"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/txtPesoObjetivo"
-            android:layout_width="22dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/txtImc"
-            android:layout_width="66dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/idGuardarEstadoFisico"
-        android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="35dp"
-        android:onClick="guardar"
-        android:text="GUARDAR"
-        android:textSize="20sp" />
+        android:hint="EDAD"
+        app:endIconContentDescription="Edad en Años"
+        app:endIconDrawable="@drawable/icono_edad"
+        app:endIconMode="custom">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtEdad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Selecccione actividad">
+
+        <AutoCompleteTextView
+            android:id="@+id/txtActividad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_end_icon5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="I.M.C."
+        app:endIconContentDescription="I.M.C."
+        app:endIconDrawable="@drawable/icono_edad"
+        app:endIconMode="custom">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtImc"
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <GridLayout
+        android:id="@+id/grid4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:columnCount="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/idGuardarEstadoFisico"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GUARDAR DATOS"
+            android:textSize="14sp" />
+
+        <Space/>
+    </GridLayout>>
+
 
 </LinearLayout>

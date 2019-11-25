@@ -1,5 +1,7 @@
 package com.example.fitness;
 
+import com.example.fitness.Database.DataBase;
+import com.example.fitness.Models.EstadoFisico;
 import com.unity3d.player.*;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,15 +17,27 @@ import android.view.WindowManager;
 public class UnityPlayerActivity extends Activity
 {
     protected UnityPlayer mUnityPlayer; // don't change the name of this variable; referenced from native code
-
+    DataBase dataBase;
+    EstadoFisico estadoFisico;
     // Setup activity layout
     @Override protected void onCreate(Bundle savedInstanceState)
     {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+        dataBase = new DataBase(this);
+        this.estadoFisico = dataBase.getEstadoFisico();
         mUnityPlayer = new UnityPlayer(this);
         setContentView(mUnityPlayer);
         mUnityPlayer.requestFocus();
+    }
+
+    public static String calcularConsumir(String code) {
+
+        return code+"<<<";
+    }
+    public static String calcularSubir(String code) {
+        return code+"++";
+
     }
 
     @Override protected void onNewIntent(Intent intent)

@@ -16,6 +16,7 @@ public class Alimento {
     private int idApi;
     private String nombre;
     private String descripcion;
+
     private String marca;
     private int idMacronutriente;
     private int cantidad;
@@ -61,9 +62,11 @@ public class Alimento {
         this.idMacronutriente = idMacronutriente;
     }
 
-    public static String getAlimentoName(){
-        return "nombre de alimento";
+    public static String getAlimentoName(int number){
+
+        return "nombre :"+(number*7);
     }
+
 
     public int getCantidad() {
         return cantidad;
@@ -91,7 +94,8 @@ public class Alimento {
 
     public static ArrayList<Alimento> convertirDesdeJSON(String jsonString){
         ArrayList<Alimento> alimentos = new ArrayList<>();
-        Log.v("fitness","starting parsing aliemtos");
+        Log.v("fitness","p lossd" +
+                "starting parsing aliemtos");
         try{
             JSONArray jsonArray = new JSONArray(jsonString);
             for(int it = 0; it<jsonArray.length(); it++){
@@ -126,7 +130,7 @@ public class Alimento {
                 }
                 alimentos.add(alimento);
                 Log.v("fitness",alimento.getNombre());
-                Log.v("fitness",alimento.getIdMacronutriente()+"");
+                //Log.v("fitness",alimento.getIdMacronutriente()+"");
             }
         }catch (JSONException e) {
             e.printStackTrace();
@@ -152,6 +156,13 @@ public class Alimento {
                 db.storeAlimento(alimentos.get(it));
             }
         }
+    }
+
+    public static String function1(){
+        String recomendacion= "";
+
+
+        return recomendacion;
     }
 
 }

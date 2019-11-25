@@ -1,4 +1,4 @@
-package Watchers;
+package com.example.fitness.Watchers;
 
 import android.text.Editable;
 import android.text.TextWatcher;

@@ -3,6 +3,7 @@ package com.example.fitness.Connection;
 import android.util.Base64;
 import android.util.Log;
 
+import com.example.fitness.Models.Actividad;
 import com.example.fitness.Models.Alimento;
 
 import java.io.BufferedReader;
@@ -204,6 +205,60 @@ public class Server {
             }
         }
         return alimentos;
+    }
+    public ArrayList<Actividad> getActividades(String email, String password) {
+        String link = PROTOCOL  + SERVER + GET_ACTIVIDADES;
+        int codestatus = 0;
+        ArrayList<Actividad> actividades = new ArrayList<>();
+        try {
+            URL url = new URL(link);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            Log.v("Direcccion-----> ", link);
+            Log.v("Brian", "user:" + email);
+            Log.v("Brian", "pass:" + password);
+            String basicAuth = "Basic " + new String(Base64.encode(( email + ":" + password).getBytes(), Base64.NO_WRAP));
+            con.setRequestProperty("Authorization", basicAuth);
+            con.setConnectTimeout(30000);
+            con.setReadTimeout(30000);
+            con.setInstanceFollowRedirects(true);
+            codestatus = con.getResponseCode();
+            actividades = readActividades(con.getInputStream());
+        } catch (Exception e) {
+            Log.v("Brian", "adsf");
+            string_gotten = "";
+            actividades = null;
+            //codestatus = 500;
+            e.printStackTrace();
+        }
+        return actividades;
+    }
+
+    private ArrayList<Actividad> readActividades(InputStream in) {
+        ArrayList<Actividad> actividades = new ArrayList<>();
+        BufferedReader reader = null;
+        StringBuilder builder = new StringBuilder();
+        try {
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+                builder.append(line);
+            }
+            Actividad.convertirDesdeJSON(builder.toString());
+            Log.v("Brian", "respuesta :" + builder.toString());
+        } catch (IOException e) {
+            actividades = null;
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return actividades;
     }
 //
 //    public int postMethod(Client client, String path) {
