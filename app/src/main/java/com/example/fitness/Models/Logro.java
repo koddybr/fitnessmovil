@@ -86,6 +86,26 @@ public class Logro {
         return logros;
     }
 
+    public static void actualizarDB(DataBase db, ArrayList<Logro> logros){
+        ArrayList<Logro> datos =  db.getLogros();
+        int encontrado = 0;
+        for(int it = 0; it<datos.size(); it++)
+        {
+            for(int sr=0; sr<datos.size(); sr++)
+            {
+                if(datos.get(sr).getIdApi() == logros.get(it).getIdApi())
+                {
+                    encontrado = 1;
+                    break;
+                }
+            }
+            if(encontrado == 0)
+            {
+                db.storeLogro(logros.get(it));
+            }
+        }
+    }
+
     public int getIdUser() {
         return idUser;
     }

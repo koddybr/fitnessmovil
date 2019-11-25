@@ -173,6 +173,26 @@ public class EstadoFisico {
         return estadosFisicos;
     }
 
+    public static void actualizarDB(DataBase db, ArrayList<EstadoFisico> estadosFisicos){
+        ArrayList<EstadoFisico> datos =  db.getEstadosFisicos();
+        int encontrado = 0;
+        for(int it = 0; it<datos.size(); it++)
+        {
+            for(int sr=0; sr<datos.size(); sr++)
+            {
+                if(datos.get(sr).getIdApi() == estadosFisicos.get(it).getIdApi())
+                {
+                    encontrado = 1;
+                    break;
+                }
+            }
+            if(encontrado == 0)
+            {
+                db.storeEstadoFisico(estadosFisicos.get(it));
+            }
+        }
+    }
+
     public int getIdApi() {
         return idApi;
     }

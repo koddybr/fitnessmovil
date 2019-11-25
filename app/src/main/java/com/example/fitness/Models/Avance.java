@@ -75,6 +75,26 @@ public class Avance {
         return avances;
     }
 
+    public static void actualizarDB(DataBase db, ArrayList<Avance> avances){
+        ArrayList<Avance> datos =  db.getAvances();
+        int encontrado = 0;
+        for(int it = 0; it<datos.size(); it++)
+        {
+            for(int sr=0; sr<datos.size(); sr++)
+            {
+                if(datos.get(sr).getIdApi() == avances.get(it).getIdApi())
+                {
+                    encontrado = 1;
+                    break;
+                }
+            }
+            if(encontrado == 0)
+            {
+                db.storeAvance(avances.get(it));
+            }
+        }
+    }
+
     public int getIdApi() {
         return idApi;
     }

@@ -120,6 +120,26 @@ public class Macronutriente {
         return macronutrientes;
     }
 
+    public static void actualizarDB(DataBase db, ArrayList<Macronutriente> macronutrientes){
+        ArrayList<Macronutriente> datos =  db.getMacronutrientes();
+        int encontrado = 0;
+        for(int it = 0; it<datos.size(); it++)
+        {
+            for(int sr=0; sr<datos.size(); sr++)
+            {
+                if(datos.get(sr).getIdApi() == macronutrientes.get(it).getIdApi())
+                {
+                    encontrado = 1;
+                    break;
+                }
+            }
+            if(encontrado == 0)
+            {
+                db.storeMacronutriente(macronutrientes.get(it));
+            }
+        }
+    }
+
     public int getIdApi() {
         return idApi;
     }
