@@ -190,7 +190,7 @@ public class Server {
                 System.out.println(line);
                 builder.append(line);
             }
-            Alimento.convertirDesdeJSON(builder.toString());
+            alimentos = Alimento.convertirDesdeJSON(builder.toString());
             Log.v("Brian", "respuesta :" + builder.toString());
         } catch (IOException e) {
             alimentos = null;
@@ -244,7 +244,7 @@ public class Server {
                 System.out.println(line);
                 builder.append(line);
             }
-            Actividad.convertirDesdeJSON(builder.toString());
+            actividades = Actividad.convertirDesdeJSON(builder.toString());
             Log.v("Brian", "respuesta :" + builder.toString());
         } catch (IOException e) {
             actividades = null;
@@ -260,6 +260,230 @@ public class Server {
         }
         return actividades;
     }
+
+    public ArrayList<Avance> getAvances(String email, String password) {
+        String link = PROTOCOL  + SERVER + GET_AVANCES;
+        int codestatus = 0;
+        ArrayList<Avance> avances = new ArrayList<>();
+        try {
+            URL url = new URL(link);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            Log.v("Direcccion-----> ", link);
+            Log.v("Brian", "user:" + email);
+            Log.v("Brian", "pass:" + password);
+            String basicAuth = "Basic " + new String(Base64.encode(( email + ":" + password).getBytes(), Base64.NO_WRAP));
+            con.setRequestProperty("Authorization", basicAuth);
+            con.setConnectTimeout(30000);
+            con.setReadTimeout(30000);
+            con.setInstanceFollowRedirects(true);
+            codestatus = con.getResponseCode();
+            avances = readAvances(con.getInputStream());
+        } catch (Exception e) {
+            Log.v("Brian", "adsf");
+            string_gotten = "";
+            avances = null;
+            //codestatus = 500;
+            e.printStackTrace();
+        }
+        return avances;
+    }
+
+    private ArrayList<Avance> readAvances(InputStream in) {
+        ArrayList<Avance> avances = new ArrayList<>();
+        BufferedReader reader = null;
+        StringBuilder builder = new StringBuilder();
+        try {
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+                builder.append(line);
+            }
+            avances = Avance.convertirDesdeJSON(builder.toString());
+            Log.v("Brian", "respuesta :" + builder.toString());
+        } catch (IOException e) {
+            avances = null;
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return avances;
+    }
+
+    public ArrayList<EstadoFisico> getEstadosFisicos(String email, String password) {
+        String link = PROTOCOL  + SERVER + GET_ESTADOS_FISICOS;
+        int codestatus = 0;
+        ArrayList<EstadoFisico> estadosFisicos = new ArrayList<>();
+        try {
+            URL url = new URL(link);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            Log.v("Direcccion-----> ", link);
+            Log.v("Brian", "user:" + email);
+            Log.v("Brian", "pass:" + password);
+            String basicAuth = "Basic " + new String(Base64.encode(( email + ":" + password).getBytes(), Base64.NO_WRAP));
+            con.setRequestProperty("Authorization", basicAuth);
+            con.setConnectTimeout(30000);
+            con.setReadTimeout(30000);
+            con.setInstanceFollowRedirects(true);
+            codestatus = con.getResponseCode();
+            estadosFisicos = readEstadosFisicos(con.getInputStream());
+        } catch (Exception e) {
+            Log.v("Brian", "adsf");
+            string_gotten = "";
+            estadosFisicos = null;
+            //codestatus = 500;
+            e.printStackTrace();
+        }
+        return estadosFisicos;
+    }
+
+    private ArrayList<EstadoFisico> readEstadosFisicos(InputStream in) {
+        ArrayList<EstadoFisico> estadosFisicos = new ArrayList<>();
+        BufferedReader reader = null;
+        StringBuilder builder = new StringBuilder();
+        try {
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+                builder.append(line);
+            }
+            estadosFisicos = EstadoFisico.convertirDesdeJSON(builder.toString());
+            Log.v("Brian", "respuesta :" + builder.toString());
+        } catch (IOException e) {
+            estadosFisicos = null;
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return estadosFisicos;
+    }
+
+
+
+    public ArrayList<Logro> getLogros(String email, String password) {
+        String link = PROTOCOL  + SERVER + GET_LOGROS;
+        int codestatus = 0;
+        ArrayList<Logro> logros = new ArrayList<>();
+        try {
+            URL url = new URL(link);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            Log.v("Direcccion-----> ", link);
+            Log.v("Brian", "user:" + email);
+            Log.v("Brian", "pass:" + password);
+            String basicAuth = "Basic " + new String(Base64.encode(( email + ":" + password).getBytes(), Base64.NO_WRAP));
+            con.setRequestProperty("Authorization", basicAuth);
+            con.setConnectTimeout(30000);
+            con.setReadTimeout(30000);
+            con.setInstanceFollowRedirects(true);
+            codestatus = con.getResponseCode();
+            logros = readLogros(con.getInputStream());
+        } catch (Exception e) {
+            Log.v("Brian", "adsf");
+            string_gotten = "";
+            logros = null;
+            //codestatus = 500;
+            e.printStackTrace();
+        }
+        return logros;
+    }
+
+    private ArrayList<Logro> readLogros(InputStream in) {
+        ArrayList<Logro> logros = new ArrayList<>();
+        BufferedReader reader = null;
+        StringBuilder builder = new StringBuilder();
+        try {
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+                builder.append(line);
+            }
+            logros = Logro.convertirDesdeJSON(builder.toString());
+            Log.v("Brian", "respuesta :" + builder.toString());
+        } catch (IOException e) {
+            logros = null;
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return logros;
+    }
+
+    public ArrayList<Macronutriente> getMacronutrientes(String email, String password) {
+        String link = PROTOCOL  + SERVER + GET_MACRONUTRIENTES;
+        int codestatus = 0;
+        ArrayList<Macronutriente> macronutrientes = new ArrayList<>();
+        try {
+            URL url = new URL(link);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            Log.v("Direcccion-----> ", link);
+            Log.v("Brian", "user:" + email);
+            Log.v("Brian", "pass:" + password);
+            String basicAuth = "Basic " + new String(Base64.encode(( email + ":" + password).getBytes(), Base64.NO_WRAP));
+            con.setRequestProperty("Authorization", basicAuth);
+            con.setConnectTimeout(30000);
+            con.setReadTimeout(30000);
+            con.setInstanceFollowRedirects(true);
+            codestatus = con.getResponseCode();
+            macronutrientes = readMacronutrientes(con.getInputStream());
+        } catch (Exception e) {
+            Log.v("Brian", "adsf");
+            string_gotten = "";
+            macronutrientes = null;
+            //codestatus = 500;
+            e.printStackTrace();
+        }
+        return macronutrientes;
+    }
+
+    private ArrayList<Macronutriente> readMacronutrientes(InputStream in) {
+        ArrayList<Macronutriente> macronutrientes = new ArrayList<>();
+        BufferedReader reader = null;
+        StringBuilder builder = new StringBuilder();
+        try {
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+                builder.append(line);
+            }
+            macronutrientes = Macronutriente.convertirDesdeJSON(builder.toString());
+            Log.v("Brian", "respuesta :" + builder.toString());
+        } catch (IOException e) {
+            macronutrientes = null;
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return macronutrientes;
+    }
+
+
 //
 //    public int postMethod(Client client, String path) {
 //
